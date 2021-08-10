@@ -1,0 +1,43 @@
+Problem: Try to print the below Pattern
+
+Input: Enter the number: 5
+Output: 1
+	2 6
+	3 7 10
+	4 8 11 12
+	5 9 12 14 15
+
+Input: Enter the number: 4
+Output: 1
+	2 5
+	3 6 8
+	4 7 9 10
+
+Answer:
+
+import java.util.Scanner;
+
+public class Main
+{
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		
+		System.out.println("Enter the Number");
+		int n = s.nextInt();
+		
+		for(int i=1; i<=n; i++){
+		    
+		    int j = 0, x = n, sum = i;
+		    
+		    while(j<i){
+		        if(j!=0){
+		            sum += x;
+		        }
+		        System.out.print(sum + " ");
+		        x--;
+		        j++;
+		    }
+		    System.out.println();
+		}
+	}
+}

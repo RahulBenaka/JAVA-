@@ -1,0 +1,377 @@
+Calculate Power
+Send Feedback
+Write a program to find x to the power n (i.e. x^n). Take x and n from the user. You need to return the answer.
+Do this recursively.
+Input format :
+Two integers x and n (separated by space)
+Output Format :
+x^n (i.e. x raise to the power n)
+Constraints :
+1 <= x <= 30
+0 <= n <= 30
+Sample Input 1 :
+ 3 4
+Sample Output 1 :
+81
+Sample Input 2 :
+ 2 5
+Sample Output 2 :
+32
+
+
+public class Solution {
+
+	public static int power(int x, int n) {
+		/* Your class should be named Solution
+		 * Don't write main().
+		 * Don't read input, it is passed as function argument.
+		 * Return output and don't print it.
+		 * Taking input and printing output is handled automatically.
+		 */
+        if(n==0){
+            return 1;
+        }
+        int smallAns = power(x, n-1);
+        int ans = x * smallAns;
+		return ans;
+	}
+}
+
+
+
+Number of Digits
+Send Feedback
+Given the code to find out and return the number of digits present in a number recursively. But it contains few bugs, that you need to rectify such that all the test cases should pass.
+Input Format :
+Integer n
+Output Format :
+Count of digits
+Constraints :
+1 <= n <= 10^6
+Sample Input 1 :
+ 156
+Sample Output 1 :
+3
+Sample Input 2 :
+ 7
+Sample Output 2 :
+1
+
+
+
+public class Solution {
+
+	public static int count(int n){
+		if(n == 0){
+			return 0;
+		}
+		int smallAns = count(n / 10);
+		return smallAns + 1;
+	}
+
+}
+
+
+
+Sum Of Array
+Send Feedback
+Given an array of length N, you need to find and return the sum of all elements of the array.
+Do this recursively.
+Input Format :
+Line 1 : An Integer N i.e. size of array
+Line 2 : N integers which are elements of the array, separated by spaces
+Output Format :
+Sum
+Constraints :
+1 <= N <= 10^3
+Sample Input 1 :
+3
+9 8 9
+Sample Output 1 :
+26
+Sample Input 2 :
+3
+4 2 1
+Sample Output 2 :
+7    
+
+
+public class Solution {
+    
+
+	public static int sum(int input[]) {
+		/* Your class should be named Solution
+		 * Don't write main().
+		 * Don't read input, it is passed as function argument.
+		 * Return output and don't print it.
+	 	 * Taking input and printing output is handled automatically.
+		*/
+         if(input.length==1){
+            return input[0];
+        }
+        
+        int n[] = new int[input.length - 1];
+        
+        for(int i=1; i<input.length; i++){
+            n[i-1]=input[i];
+        }
+        
+        int sum = input[0] + sum(n); 
+        return sum;       
+        	
+	}
+}
+
+
+
+Check Number in Array
+Send Feedback
+Given an array of length N and an integer x, you need to find if x is present in the array or not. Return true or false.
+Do this recursively.
+Input Format :
+Line 1 : An Integer N i.e. size of array
+Line 2 : N integers which are elements of the array, separated by spaces
+Line 3 : Integer x
+Output Format :
+'true' or 'false'
+Constraints :
+1 <= N <= 10^3
+Sample Input 1 :
+3
+9 8 10
+8
+Sample Output 1 :
+true
+Sample Input 2 :
+3
+9 8 10
+2
+Sample Output 2 :
+false
+
+
+
+public class Solution {
+	
+	public static boolean checkNumber(int input[], int x) {
+		/* Your class should be named Solution
+		 * Don't write main().
+		 * Don't read input, it is passed as function argument.
+		 * Return output and don't print it.
+	 	 * Taking input and printing output is handled automatically.
+		*/
+        if(input[0]==x){
+            return true;
+        }
+        
+    	if(input.length==1 && input[0]!=x){
+            return false;
+        }
+            
+        int n[] = new int[input.length-1];
+        for(int i=1; i<input.length; i++){
+            n[i-1]=input[i];
+        }
+        
+        boolean isTrue = checkNumber(n, x);
+    	return isTrue;
+	}
+}
+
+
+
+First Index Of a Number in an Array - Question
+Send Feedback
+Given an array of length N and an integer x, you need to find and return the first index of integer x present in the array. Return -1 if it is not present in the array.
+First index means, the index of first occurrence of x in the input array.
+Do this recursively. Indexing in the array starts from 0.
+Input Format :
+Line 1 : An Integer N i.e. size of array
+Line 2 : N integers which are elements of the array, separated by spaces
+Line 3 : Integer x
+Output Format :
+first index or -1
+Constraints :
+1 <= N <= 10^3
+Sample Input :
+4
+9 8 10 8
+8
+Sample Output :
+1
+
+
+
+public class Solution {
+    
+	static int count=0;
+	public static int firstIndex(int input[], int x) {
+		/* Your class should be named Solution
+		 * Don't write main().
+		 * Don't read input, it is passed as function argument.
+		 * Return output and don't print it.
+	 	 * Taking input and printing output is handled automatically.
+		*/
+        if(input[0]==x){
+            return count;            
+        }
+
+
+		if(input.length==1 && input[0]!=1){
+		return -1;
+		}
+        
+        
+        int n[] = new int[input.length-1];
+        for(int i=1; i<input.length; i++){
+            n[i-1]=input[i];
+        }
+        count++;
+        
+        int y = firstIndex(n, x);
+        
+        if(y==-1)
+            return -1;
+        else
+        	return count;
+        
+	}
+	
+}
+
+
+
+
+Last Index Of a Number in an Array - Question
+Send Feedback
+Given an array of length N and an integer x, you need to find and return the last index of integer x present in the array. Return -1 if it is not present in the array.
+Last index means - if x is present multiple times in the array, return the index at which x comes last in the array.
+You should start traversing your array from 0, not from (N - 1).
+Do this recursively. Indexing in the array starts from 0.
+Input Format :
+Line 1 : An Integer N i.e. size of array
+Line 2 : N integers which are elements of the array, separated by spaces
+Line 3 : Integer x
+Output Format :
+last index or -1
+Constraints :
+1 <= N <= 10^3
+Sample Input :
+4
+9 8 10 8
+8
+Sample Output :
+3
+
+
+
+public class Solution {
+    
+    public static int func(int a[], int x, int si){
+        if(si<0){
+            return -1;
+        }
+        
+        if(a[si]==x){
+            return si;
+        }
+        
+        int k = func(a, x, si-1);
+        return k;
+    }
+
+	public static int lastIndex(int input[], int x) {
+        
+        return func(input, x, input.length-1);  // Here he start index is (input.length - 1) coz if
+        										// input.length = 10, it ha elements till input[9].
+	}
+	
+
+
+
+
+Remove X
+Send Feedback
+Given a string, compute recursively a new string where all 'x' chars have been removed.
+Input format :
+String S
+Output format :
+Modified String
+Constraints :
+1 <= |S| <= 10^3
+where |S| represents the length of string S. 
+Sample Input 1 :
+xaxb
+Sample Output 1:
+ab
+Sample Input 2 :
+abc
+Sample Output 2:
+abc
+Sample Input 3 :
+xx
+Sample Output 3:
+
+
+public class solution {
+
+    public static String replaceChar(String s, char a){
+        if(s.length()==0){
+            return s;
+        }
+        String smallOutput = replaceChar(s.substring(1), a);
+        if(s.charAt(0)==a){
+            return smallOutput;  // Here if its ewual to x, it will skip the character and move to next character
+            					 // as smallOutput is recursievly calling the replaceChar func for every characte in string
+        }else{
+            return s.charAt(0) + smallOutput;
+        }
+    }
+    
+	// Return the changed string
+	public static String removeX(String input){
+		// Write your code here
+		return replaceChar(input, 'x');
+	}
+}
+
+
+
+
+Remove Duplicates Recursively
+Send Feedback
+Given a string S, remove consecutive duplicates from it recursively.
+Input Format :
+String S
+Output Format :
+Output string
+Constraints :
+1 <= |S| <= 10^3
+where |S| represents the length of string
+Sample Input 1 :
+aabccba
+Sample Output 1 :
+abcba
+Sample Input 2 :
+xxxyyyzwwzzz
+Sample Output 2 :
+xyzwz
+
+
+public class Solution {
+
+	public static String removeConsecutiveDuplicates(String s) {
+		// Write your code here
+		if(s.length()<=1){
+            return s;
+        }
+
+        String smallOutput = removeConsecutiveDuplicates(s.substring(1));
+        
+        if(s.charAt(0)==s.charAt(1)){
+            return smallOutput;
+        }else {
+            return s.charAt(0) + smallOutput;
+        }
+     }
+}

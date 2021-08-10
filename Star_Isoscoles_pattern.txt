@@ -1,0 +1,74 @@
+Code : Star Pattern
+Send Feedback
+Print the following pattern
+Pattern for N = 4
+
+
+
+The dots represent spaces.
+
+
+
+Input Format :
+N (Total no. of rows)
+Output Format :
+Pattern in N lines
+Constraints :
+0 <= N <= 50
+Sample Input 1 :
+3
+Sample Output 1 :
+   *
+  *** 
+ *****
+Sample Input 2 :
+4
+Sample Output 2 :
+    *
+   *** 
+  *****
+ *******
+
+
+import java.util.Scanner;
+
+public class Solution {
+
+
+	public static void main(String[] args) {
+		
+		/* Your class should be named Solution.
+	 	* Read input as specified in the question.
+	 	* Print output as specified in the question.
+		*/
+		Scanner s = new Scanner(System.in);
+        
+        int n =s.nextInt();
+        
+        int i =1;
+        
+        while(i<=n){
+            int j = 1;
+
+            while(j<=n+i-1){    
+                
+                if(j<=n-i){
+                    System.out.print(" ");
+                }
+                else if(j>n-i){
+                    System.out.print("*");
+                }
+                j = j+1;
+            }
+            System.out.println();
+            i = i+1;
+            
+        }
+	}
+
+}
+
+
+Here 2nd loop runs till n+i-1 coz, till n no. of times we print spaces upto j<n-i and for j>n-i and upto j<=n we print the numbers.
+Then we have to again print the no.s in reverse order. if we observe carefully, in every ith row, there will be (i to n) no.s increasing and
+(i - 1 to 1) no.s decreasing till 1. so in total we have to run the 2nd loop for n - i + 1 times.   

@@ -1,0 +1,65 @@
+Decimal to Binary
+Send Feedback
+Given a decimal number (integer N), convert it into binary and print.
+The binary number should be in the form of an integer.
+Note : The given input number could be large, so the corresponding binary number can exceed the integer range. So you may want to take the answer as long for CPP and Java.
+
+
+Input format :
+Integer N
+Output format :
+Corresponding Binary number (long)
+Constraints :
+0 <= N <= 10^5
+Sample Input 1 :
+12
+Sample Output 1 :
+1100
+Sample Input 2 :
+7
+Sample Output 2 :
+111
+
+
+import java.util.Scanner;
+
+public class Main {
+	
+	public static void main(String[] args) {
+		// Write your code here
+		  Scanner s = new Scanner(System.in);
+        
+        int n = s.nextInt();
+        int z = n;
+        
+        int bin = 0;
+        int i =0;
+        String str = "";
+        
+        if(n==0){
+           System.out.print(0); 
+        }
+        
+        while(n!=0){
+            int x = n%2;
+            str = x+str;
+            bin = bin*10 + x;
+            n = n/2;
+        }   // After obtaining the value here, we notice that the original binary no. is reversed.
+        
+        
+        
+//         int rev = bin;   //Hence we assign it to a no. and reverse this to get original binary no.
+//         bin =0;
+        
+//         while(rev!=0){   // Here the reversing is done to obtain the original binary no.
+//             int x = n%10;
+//             bin = bin*10 + x;
+//             n=n/10;
+//            }
+		if(z!=0)
+        {
+         System.out.print(str);
+        }    
+	}
+}

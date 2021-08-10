@@ -1,0 +1,13 @@
+Would the following code generate an error:
+public static double add(int a,int b)
+{
+    float c=a+b;
+    return c;
+}
+public static void main (String[] args) {
+    System.out.print(add(10,3));
+}
+
+Answer: No (Reason: Implicit type conevrsion are allowed while returning values)
+
+(if it was int in function and u are returning float or double, it would have thrown an error)

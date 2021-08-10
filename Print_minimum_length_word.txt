@@ -1,0 +1,57 @@
+Minimum Length Word
+Send Feedback
+Given a string S (that can contain multiple words), you need to find the word which has minimum length.
+Note : If multiple words are of same length, then answer will be first minimum length word in the string.
+Words are seperated by single space only.
+Input Format :
+String S
+Output Format :
+Minimum length word
+Constraints :
+1 <= Length of String S <= 10^5
+Sample Input 1 :
+this is test string
+Sample Output 1 :
+is
+Sample Input 2 :
+abc de ghihjk a uvw h j
+Sample Output 2 :
+a
+
+
+public class Solution {
+	
+	public static String minLengthWord(String input){
+		
+		// Write your code here
+        int n = input.length();
+        int count=0, x=1, y=0, z=0, min=0;
+        int s[] = new int[10000];
+        int e[] = new int[10000];    // Here array size is set to higher number coz test cases has more words
+        s[0]=0;                      // Some sentence had more than 1000 words, so array size is 10000. If we  
+                                     // have to deal with more than 10000 words, increase the   
+        for(int i=0; i<n; i++){
+            if(input.charAt(i)==' '){
+                s[x++]=i+1;
+                e[y++]=i; 
+            }
+        }
+
+        e[y]=n;
+        
+        min = Integer.MAX_VALUE;
+        
+        for(int i=0; i<=y; i++){
+        	int a = e[i]-s[i];
+            if(min>a){
+                z=i;
+                min=a;
+            }
+        }
+        
+        String str = "";
+        str = input.substring(s[z], e[z]);
+        
+        return str;
+	}
+}

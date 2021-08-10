@@ -1,0 +1,134 @@
+Palindrome LinkedList
+Send Feedback
+You have been given a head to a singly linked list of integers. Write a function check to whether the list given is a 'Palindrome' or not.
+ Input format :
+The first line contains an Integer 't' which denotes the number of test cases or queries to be run. Then the test cases follow.
+
+First and the only line of each test case or query contains the the elements of the singly linked list separated by a single space.
+ Remember/Consider :
+While specifying the list elements for input, -1 indicates the end of the singly linked list and hence, would never be a list element.
+ Output format :
+For each test case, the only line of output that print 'true' if the list is Palindrome or 'false' otherwise.
+ Constraints :
+1 <= t <= 10^2
+0 <= M <= 10^5
+Time Limit: 1sec
+
+Where 'M' is the size of the singly linked list.
+Sample Input 1 :
+1
+9 2 3 3 2 9 -1
+Sample Output 1 :
+true
+Sample Input 2 :
+2
+0 2 3 2 5 -1
+-1
+Sample Output 2 :
+false
+true
+Explanation for the Sample Input 2 :
+For the first query, it is pretty intuitive that the the given list is not a palindrome, hence the output is 'false'.
+
+For the second query, the list is empty. An empty list is always a palindrome , hence the output is 'true'.
+
+
+
+
+
+/*
+
+	Following is the Node class already written for the Linked List
+
+	class LinkedListNode<T> {
+    	T data;
+    	LinkedListNode<T> next;
+    
+    	public LinkedListNode(T data) {
+        	this.data = data;
+    	}
+	}
+
+*/
+
+public class Solution {
+    
+    
+    public static LinkedListNode<Integer> reverse(LinkedListNode<Integer> head){
+        
+        if (head == null || head.next == null) 
+            return head; 
+ 
+        /* reverse the rest list and put 
+        the first element at the end */
+        LinkedListNode<Integer> rest = reverse(head.next); 
+        head.next.next = head; 
+ 
+        /* tricky step -- see the diagram */
+        head.next = null; 
+ 
+        /* fix the head pointer */
+        return rest;
+        
+        
+		//Another code for revering the linked list using iterative method
+        
+        // LinkedListNode<Integer> prev = null;
+        // LinkedListNode<Integer> current = head;
+        // LinkedListNode<Integer> next = null;
+        // while (current != null) {
+        //     next = current.next;
+        //     current.next = prev;
+        //     prev = current;
+        //     current = next;
+        // }
+        // head = prev;
+        // return head;
+    }
+
+	public static boolean isPalindrome(LinkedListNode<Integer> head) {
+		//Your code goes here
+        
+        if(head == null || head.next == null) return true;
+        
+        LinkedListNode<Integer> temp = head, newHead = head;
+        int count = 0;
+        
+        while(temp!=null){
+            count++;
+            temp = temp.next;
+        }
+        
+        int len = 0;
+        
+        if(count%2==0) len = count/2;
+        else len = count/2 + 1;
+        
+        temp = head;
+        int i = 1;
+        
+        while(i<=len){
+            temp = temp.next;
+            i++;
+        }
+        
+        newHead = temp; //First obtain the newHead of the second part of linked list.
+        newHead = reverse(temp);
+        temp.next = null;
+
+        
+        temp = head;
+        
+        while(temp!=null && newHead!=null){
+            if(temp.data != newHead.data)
+                return false;
+            
+    		temp = temp.next; 
+            newHead = newHead.next;
+        }
+        
+        return true;
+        
+	}
+
+}

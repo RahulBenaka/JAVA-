@@ -1,0 +1,18 @@
+Find error
+Send Feedback
+Which line(s) of the following code would give an error:
+public static void main (String[] args) {
+    int a=10,b=20;
+    System.out.println(a+++--b);//line 1
+    System.out.println(a--+++b);//line 2
+    System.out.println(a++-++b);//line 3
+    System.out.println(a+++++b);//line 4
+}
+Options
+line 1
+line 2 
+line 3
+line 4 
+Correct Answer: line 2 and line 4
+Solution Description
+As + operator and ++ operator have equal precedence. Similarly - and -- have equal precedence. So in line 2 +++b and in line 4 +++b gives an error. To solve this error we can use +(++b).
