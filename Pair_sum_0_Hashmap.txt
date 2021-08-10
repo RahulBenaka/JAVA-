@@ -1,0 +1,86 @@
+Pair Sum to 0
+Send Feedback
+Given a random integer array A of size N. Find and print the count of pair of elements in the array which sum up to 0.
+Note: Array A can contain duplicate elements as well.
+Input format:
+The first line of input contains an integer, that denotes the value of the size of the array. Let us denote it with the symbol N.
+The following line contains N space separated integers, that denote the value of the elements of the array.
+Output format :
+The first and only line of output contains the count of pair of elements in the array which sum up to 0. 
+Constraints :
+0 <= N <= 10^4
+Time Limit: 1 sec
+Sample Input 1:
+5
+2 1 -2 2 3
+Sample Output 1:
+2
+
+
+
+
+
+//Wrote this code on my own after seeing hint video
+
+
+
+import java.util.*;
+
+public class Solution {
+    
+    public static int PairSum(int[] input, int size) {
+		/* Your class should be named Solution
+		 * Don't write main().
+		 * Don't read input, it is passed as function argument.
+		 * Return output and don't print it.
+	 	 * Taking input and printing output is handled automatically.
+        */
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int count = 0;
+        
+        for(int k: input){ //Add the elem and its frequence to a HashMap
+            if(map.containsKey(k)){
+                 map.put(k, map.get(k)+1);
+            }else
+                map.put(k, 1);
+        }
+        
+        for(int elem: input){ //Traverse through the array to check for each and every elem
+            
+            if(elem == 0){ //This is the special case for 0 and we should handle it seperately
+                if(map.containsKey(elem)){ //If it contains 0
+                    int ans = map.get(elem);//First get the count of no. of 0's present in the array
+                    ans = (ans*(ans-1))/2; //Then we have to find the sum of 1st natural numbers equivalent
+                    count+=ans;            //to the count of zeroes and then add that answer as the total pairs
+                }                          //of zero present im the given array
+                
+                map.put(0, 0); //Once we take all the count of 0's pair, we remove the elem 0.
+            }
+
+            int pair = -elem; //For other general cases, first obtain the counterpart of the given array elem
+            
+            if(map.containsKey(pair)){//Check if that counterpart exists in hashmap
+                int freqOfPair = map.get(pair); //If it exists, obtain the frequency of that counterpart
+                
+            	if(map.containsKey(elem)){//Then check if that elem exists ornot
+                	int freqOfElem = map.get(elem);//If it exists, then obtain the frequency of that elem
+                
+                	int totalFreq = freqOfElem * freqOfPair;//Then finally obtain the total occurances of pair
+                    //of elem and its counterprt by multiplying their frequency. For example:
+                    
+                    /* if 2 occurs 2 times and -2 occurs 2 times then we will have 2*2 = 4 occurances of
+                        pair (2,-2) */
+                                                         
+                	count += totalFreq; //Finally add that pair count to the count.
+                    
+                    //Since we have obtained the totalno. of pairs of elem and its counterpart, we can simply 
+                    //remove the elem and its counterpart from the Hashamp.
+                    map.put(elem, 0);
+                    map.put(pair, 0);
+            	}
+            }
+        }
+        
+        return count; 
+	}
+}

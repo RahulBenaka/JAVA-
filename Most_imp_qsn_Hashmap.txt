@@ -1,0 +1,9 @@
+MOST ASKED INTERVIEW QUESTION:
+
+IMPLEMENTATION OF HASHMAP i.e.
+
+1. Insert function 2. Delete Function 3.Size function 4.GetValue function and most imp one 5. ReHashing function
+
+Most importatnt question and check coding ninjas videos for more. If possible take ss of each function and save it.
+Try to learn all the functions as it is most imp. If u could not save the code, atleast google and learn. 
+Dont miss rehashing. Its the most imp function among all the functions.

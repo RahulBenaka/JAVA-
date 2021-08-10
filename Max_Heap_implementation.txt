@@ -1,0 +1,113 @@
+Code : Max Priority Queue
+Send Feedback
+Implement the class for Max Priority Queue which includes following functions -
+1. getSize -
+Return the size of priority queue i.e. number of elements present in the priority queue.
+2. isEmpty -
+Check if priority queue is empty or not. Return true or false accordingly.
+3. insert -
+Given an element, insert that element in the priority queue at the correct position.
+4. getMax -
+Return the maximum element present in the priority queue without deleting. Return -Infinity if priority queue is empty.
+5. removeMax -
+Delete and return the maximum element present in the priority queue. Return -Infinity if priority queue is empty.
+Note : main function is given for your reference which we are using internally to test the class.
+
+
+
+
+
+//This is the complete code of Implementation of Max Heap
+
+
+
+import java.util.ArrayList;
+
+public class PQ {
+
+	private ArrayList<Integer> heap;
+
+	public PQ() {
+		heap = new ArrayList<Integer>();
+	}
+
+	boolean isEmpty() {
+		return heap.size() == 0;
+	}
+
+	int getSize() {
+		return heap.size();
+	}
+
+	int getMax() {
+		if (isEmpty()) {
+			// Throw an exception
+			return Integer.MIN_VALUE;
+		}
+		return heap.get(0);
+	}
+
+	void insert(int element) {
+		heap.add(element);
+		int childIndex = heap.size() - 1;
+		int parentIndex = (childIndex - 1) / 2;
+
+		while (childIndex > 0) {
+			if (heap.get(childIndex) > heap.get(parentIndex)) {
+				int temp = heap.get(childIndex);
+				heap.set(childIndex, heap.get(parentIndex));
+				heap.set(parentIndex, temp);
+				childIndex = parentIndex;
+				parentIndex = (childIndex - 1) / 2;
+			} else {
+				return;
+			}
+		}
+	}
+
+    int removeMax() {
+        // Complete this function
+		// Throw the exception PriorityQueueException if queue is empty
+        
+		if(isEmpty()){
+			// Throw an exception
+			return Integer.MIN_VALUE;
+		}
+        
+		int ans = heap.get(0);//First save the maximum elem of heap i.e. the first elem of min heap
+		heap.set(0, heap.get(heap.size() - 1)); //Swap the 1st and last of heap.
+		heap.remove(heap.size() - 1);//remove the last elem of heap which was the previous first elem of heap
+                                     //i.e. the maximum element in the heap
+		
+        int index = 0;
+		int maxIndex = index;
+		int leftChildIndex = 1;
+		int rightChildIndex = 2;
+
+		while(rightChildIndex < heap.size()){//This is bcoz the heap is a complete binary tree and hence a right 
+                                            //node cannot exist unless there is a left node necessarily and as we
+                                            //know from tree property, the largest elem among root and its children
+                                            //the right root has the largest value, hence instead of left child index,
+                                            //are running till rightChildIndex is less than heap.size()
+			if(heap.get(leftChildIndex) > heap.get(maxIndex)){
+				maxIndex = leftChildIndex;
+			}
+			if(rightChildIndex < heap.size() && heap.get(rightChildIndex) > heap.get(maxIndex)){
+				maxIndex = rightChildIndex;
+			}
+			if(maxIndex == index){
+				break;
+			}else{
+				int temp1 = heap.get(index);
+				heap.set(index, heap.get(maxIndex));
+				heap.set(maxIndex, temp1);
+				index = maxIndex;
+				leftChildIndex = 2 * index + 1;
+				rightChildIndex = 2 * index + 2;
+			}
+		}
+		
+        return ans;
+
+	}
+}

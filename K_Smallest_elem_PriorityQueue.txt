@@ -1,0 +1,66 @@
+K Smallest Elements
+Send Feedback
+You are given with an integer k and an array of integers that contain numbers in random order. Write a program to find k smallest numbers from given array. You need to save them in an array and return it.
+Time complexity should be O(n * logk) and space complexity should not be more than O(k).
+Note: Order of elements in the output is not important.
+Input Format :
+The first line of input contains an integer, that denotes the value of the size of the array. Let us denote it with the symbol N.
+The following line contains N space separated integers, that denote the value of the elements of the array.
+The following line contains an integer, that denotes the value of k.
+Output Format :
+The first and only line of output print k smallest elements. The elements in the output are separated by a single space. 
+Constraints:
+Time Limit: 1 sec
+Sample Input 1 :
+13
+2 12 9 16 10 5 3 20 25 11 1 8 6 
+4
+Sample Output 1 :
+1 2 3 5 
+
+
+
+
+//The code ws written by me without any help and didn't see any hint videos also
+
+
+import java.util.*;
+
+public class Solution {
+
+	public static ArrayList<Integer> kSmallest(int n, int input[], int k) {
+		/* Your class should be named Solution
+		* Don't write main().
+		* Don't read input, it is passed as function argument.
+		* Return output and don't print it.
+		* Taking input and printing output is handled automatically.
+		*/
+		PriorityQueue<Integer> q = new PriorityQueue<>();
+        
+        if(k > input.length || input.length == 0 || k == 0)
+            return null;
+        
+        for(int i: input){
+            q.add(i);
+        }
+        
+        int i=0, j=0;
+        ArrayList<Integer> temp = new ArrayList<>(); 
+        
+        for(i=q.size()-1; i>=0; i--){
+            temp.add(q.poll());
+        }
+        
+        ArrayList<Integer> ans = new ArrayList<>();
+        k--;//This is done to obtain the index of the elem which is at the end of the list of k no. of
+            //smallest elem. For ex, if we want to remove 4 smallest elem, the list ends at index no. 3
+            //Like that, k defines the no. of elem to be removed and k-- gives index of the last elem of that list
+        
+        while(k>=0){
+            ans.add(temp.remove(k));
+            k--;                     
+        }
+        
+        return ans;
+	}
+}

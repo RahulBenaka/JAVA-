@@ -1,0 +1,116 @@
+Construct Tree Using Inorder and Preorder
+Send Feedback
+For a given preorder and inorder traversal of a Binary Tree of type integer stored in an array/list, create the binary tree using the given two arrays/lists. You just need to construct the tree and return the root.
+Note:
+Assume that the Binary Tree contains only unique elements. 
+Input Format:
+The first line of input contains an integer N denoting the size of the list/array. It can also be said that N is the total number of nodes the binary tree would have.
+
+The second line of input contains N integers, all separated by a single space. It represents the preorder-traversal of the binary tree.
+
+The third line of input contains N integers, all separated by a single space. It represents the inorder-traversal of the binary tree.
+Output Format:
+The given input tree will be printed in a level order fashion where each level will be printed on a new line. 
+Elements on every level will be printed in a linear fashion. A single space will separate them.
+Constraints:
+1 <= N <= 10^4
+Where N is the total number of nodes in the binary tree.
+
+Time Limit: 1 sec
+Sample Input 1:
+7
+1 2 4 5 3 6 7 
+4 2 5 1 6 3 7 
+Sample Output 1:
+1 
+2 3 
+4 5 6 7 
+Sample Input 2:
+6
+5 6 2 3 9 10 
+2 6 3 9 5 10 
+Sample Output 2:
+5 
+6 10 
+2 3 
+9 
+
+
+
+
+
+
+/*
+	
+	Following is the structure used to represent the Binary Tree Node
+
+	class BinaryTreeNode<T> {
+		T data;
+		BinaryTreeNode<T> left;
+		BinaryTreeNode<T> right;
+
+		public BinaryTreeNode(T data) {
+			this.data = data;
+			this.left = null;
+			this.right = null;
+		}
+	}
+
+*/
+
+public class Solution {
+
+	public static BinaryTreeNode<Integer> buildTree(int[] preOrder, int[] inOrder) {
+		//Your code goes here
+        BinaryTreeNode<Integer> root = new BinaryTreeNode<Integer>(0);
+        int left = -1, right;
+        
+        if(preOrder.length == 0 || inOrder.length == 0) //This is the stopping condition when all the elem are
+            return null;                                //taken out of the array and we have to make the leaf nodes
+                                                        // point to null or else it will cause run time error.
+        
+        root.data = preOrder[0]; //Since first elem of preOrder is always root
+        
+        for(int i=0; i<inOrder.length; i++){
+            if(inOrder[i] == root.data){
+                left = i; //Find the index of the root elem in inOrder array.
+                break;
+            }
+        }
+        
+        int[] inLeft = new int[left]; //Create new Inorder array for left subtree of the root
+        
+        for(int i=0; i<inLeft.length; i++) //Since inorder follows left - root - right sequence the elem left to
+            inLeft[i] = inOrder[i];        //root are the elem of left subtree of the root. So we are copying it
+                                           //to the new Inorder array.
+        
+        right = left + 1;  
+        int rsize = inOrder.length - right;
+        int[] inRight = new int[rsize]; //Next we create new Inorder arrray for the right subtree of the root
+        
+        if(right<inOrder.length){  //Copy the right side elem of the root.(Since inOrder follows left - root - right sequence)
+        	for(int i=right, j=0; i<inOrder.length; i++, j++)
+            	inRight[j] = inOrder[i]; 
+        }
+        
+        int[] preLeft = new int[left]; //Create new preOrder array for left subtree of the root
+        
+        for(int i=1, j=0; i<=left; i++, j++) //Since preOrder follow root - left - right sequence we start copying
+            preLeft[j] = preOrder[i];        //elem after first elem i.e. after root elem. Since we know the count of
+             								 //elem preent in leftsubtree, we copy elem till that count.
+        
+        int[] preRight = new int[rsize]; //Create new preOrder array for right subtree of the root
+        
+        if(right<preOrder.length){ //Copy the remaining elem to the array(Since preOrder follows root - left - right sequence)
+        	for(int i=right, j=0; i<preOrder.length; i++, j++)
+            	preRight[j] = preOrder[i];
+        }
+        
+        root.left = buildTree(preLeft, inLeft); //Call for the left sub tree  of root recursievly 
+        root.right = buildTree(preRight, inRight); //Call for the right subtree of root recursievly
+        
+        return root;
+        
+	}
+
+}

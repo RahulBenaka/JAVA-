@@ -1,0 +1,91 @@
+Longest subset zero sum
+Send Feedback
+Given an array consisting of positive and negative integers, find the length of the longest subarray whose sum is zero.
+Input Format:
+The first line of input contains an integer, that denotes the value of the size of the array. Let us denote it with the symbol N.
+The following line contains N space separated integers, that denote the value of the elements of the array.
+Output Format
+The first and only line of output contains length of the longest subarray whose sum is zero.
+Constraints:
+0 <= N <= 10^8
+Time Limit: 1 sec
+Sample Input 1:
+10 
+ 95 -97 -387 -435 -5 -70 897 127 23 284
+Sample Output 1:
+5
+Explanation:
+The five elements that form the longest subarray that sum up to zero are: -387, -435, -5, -70, 897 
+
+
+
+
+//Wrote this code on my own without even watching any hint video or anything
+
+
+
+import java.util.*;
+
+public class Solution {
+
+	public static int lengthOfLongestSubsetWithZeroSum(int arr[]) {
+		// Write your code here
+        HashMap<Integer, Boolean> map = new HashMap<>();
+    
+        for(int i: arr){//First add all the elem of the array to the HashMap
+            if(map.containsKey(i)){
+                continue;
+            }else
+                map.put(i, true);
+        }
+        
+        int max = 0;
+        
+        for(int i=0; i<arr.length; i++){//Check for every element in array
+            
+            if(map.containsKey(arr[i])){ //If that elem exists in map
+                
+                Boolean bool = false;
+                int temp = i+1; //take the next no. after starting point as it should be a consecutive nuumber
+                int count = 1; //and make the count as 1
+                int sum = arr[i];//and assign the sum with value of arr[i];
+                int tempcount = 0;//This is used to keep temporary count
+                
+                while(temp<arr.length && map.containsKey(arr[temp])){ //check if every consecutive elem of starting num exists and also index temp
+                                                                      //should not exceed the array length
+					count++;//and by this count variable, we will get the length of the consecutive terms which add upto 0
+                    
+                    sum += arr[temp];//update the sum
+                    
+                    /*This condition is for cases like, if arr has 2, -2, 0, -2, 2
+                    	Here for count = 2 i.e. 2 and -2 will add upto 0 but that is not the greatest length
+                        Here for count = 5 i.e. 2 + (-2) + 0 + (-2) + 2 will add upto 0.
+                        Since we want max count, we first save the count = 2 in tempcount and let the loop run till 
+                        end of the array. In that if there are terms which add upto zero, we will copy that count to
+                        temp count. As a result, at the end of the loop, we will have the max count which yields 0
+                    */
+                    if(sum == 0){ 
+                        tempcount = count;
+                        bool = true;//this ensures that we've got the sum = 0 for "count" no. of elem
+                    }
+                    
+                    temp++; //and this loop will run till we encounter a point where consecutive no. wont exist
+                }
+                
+                
+                //Since the loop run till the end of the array, the count will be equal to that size. But the
+                //actual max count of elem which add upto zero lies in tempcount. Hence we've to copy that value
+                //to the count
+                if(sum != 0)
+                    count = tempcount;
+                
+                if(bool == true){//Here boolean checks whether we've an instance where the terms add upto zero or not   
+                    if(count>max)//chech if this length is greater than the max consecutive length  
+                    	max = count; //If it is, then change the max length 
+                }
+            }
+        }
+        
+        return max;
+	}
+}

@@ -1,0 +1,114 @@
+Return Keypad Code
+Send Feedback
+Given an integer n, using phone keypad find out all the possible strings that can be made using digits of input n.
+Return empty string for numbers 0 and 1.
+Note : 1. The order of strings are not important.
+2. Input and output has already been managed for you. You just have to populate the output array and return the count of elements populated in the output array.
+Input Format :
+Integer n
+Output Format :
+All possible strings in different lines
+Constraints :
+1 <= n <= 10^6
+Sample Input:
+23
+Sample Output:
+ad
+ae
+af
+bd
+be
+bf
+cd
+ce
+cf
+
+
+
+//Wrote this code on my own without any help
+
+
+
+import java.util.*;
+
+public class solution {
+    
+    public static String helper(int n){//This is a function to return the alphabets corresponding to the
+        if(n==1)                       //number in the phone keypad.
+            return " ";
+        else if(n==2)
+            return "abc";
+        else if(n==3)
+            return "def";
+        else if(n==4)
+            return "ghi";
+        else if(n==5)
+            return "jkl";
+        else if(n==6)
+            return "mno";
+        else if(n==7)
+            return "pqrs";
+        else if(n==8)
+            return "tuv";
+        else if(n==9)
+            return "wxyz";
+        else 
+            return " ";
+        
+    }
+
+	// Return a string array that contains all the possible strings
+	public static String[] keypad(int n){
+		// Write your code here
+		if((n%10 - n) == 0){ //This is to check if it is the last digit of the given number. For ex:
+                             // If given number is 234, (234 % 10 - 234) = 4 - 234 != 0 
+            int size = 0;                            //   (23 % 10 - 23) = 3 - 23 != 0
+                                                     //    (2 % 10 - 2)  = 0 == 0 (which tells us that this is
+            if(n == 7 || n == 9)                     //the last digit and we should not move further)
+            	size = 4;
+            else
+                size = 3;
+            
+            String helperCode = helper(n);
+            
+            String[] baseCase = new String [size];
+            
+            for(int i=0; i<size; i++){
+                String temp = "" + helperCode.charAt(0); //This is done to convert character to string
+                
+                baseCase[i] = temp;
+                helperCode = helperCode.substring(1); //This is done to traverse through each character of the
+            }                                          //required code
+            
+            return baseCase;
+        }
+        
+        int num = n%10;
+
+       	String[] smallAns = keypad(n/10);
+        
+    	String str = helper(num); //Ex: 234 % 10 = 4 and we have to get the alphabets for number "4"
+        
+        String[] ans = new String[smallAns.length];
+        
+        if(num == 7 || num == 9)
+        	ans = new String[(4 * smallAns.length)];
+        else
+            ans = new String[(3 * smallAns.length)];
+        
+        int k=0;
+
+        while(k<ans.length){
+            
+            for(int i=0; i<smallAns.length; i++){
+                ans[k] = smallAns[i] + str.charAt(0);
+                k++;
+            }
+            
+            str = str.substring(1);
+        }
+        
+        return ans;
+	}
+	
+}

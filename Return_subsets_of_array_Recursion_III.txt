@@ -1,0 +1,81 @@
+Return subset of an array
+Send Feedback
+Given an integer array (of length n), find and return all the subsets of input array.
+Subsets are of length varying from 0 to n, that contain elements of the array. But the order of elements should remain same as in the input array.
+Note : The order of subsets are not important.
+Input format :
+
+Line 1 : Size of array
+
+Line 2 : Array elements (separated by space)
+
+Sample Input:
+3
+15 20 12
+Sample Output:
+[] (this just represents an empty array, don't worry about the square brackets)
+12 
+20 
+20 12 
+15 
+15 12 
+15 20 
+15 20 12 
+
+
+
+
+
+
+public class solution {
+    
+    public static int[][] helper(int input[], int si) {
+		// Write your code here
+        if(si == input.length - 1){
+            int output[][] = new int[1][1];
+            output[0][0] = input[si];
+            return output;
+        }
+        
+        int smallOutput[][] = helper(input, si+1);
+        
+        int output[][] = new int[2 * smallOutput.length + 1][];
+        
+        int x = 0;
+        
+        for(int i=0; i<smallOutput.length; i++){
+            output[x] = new int[smallOutput[i].length];
+            for(int j = 0; j<smallOutput[i].length; j++){
+                output[x][j] = smallOutput[i][j];
+            }
+            x++;
+        }
+        
+        output[x] = new int[1];
+        output[x][0] = input[si];
+        x++;
+        
+        for(int i=0; i<smallOutput.length; i++){
+            output[x] = new int[smallOutput[i].length + 1];
+            output[x][0] = input[si];
+            
+            for(int j = 0, k = 1; j<smallOutput[i].length; j++, k++){
+                output[x][k] = smallOutput[i][j];
+            }
+            x++;
+        }
+        
+        return output;
+
+	}
+    
+
+	// Return a 2D array that contains all the subsets
+	public static int[][] subsets(int input[]) {
+		// Write your code here
+        int ans[][] = helper(input, 0);
+        
+        return ans;
+
+	}
+}
